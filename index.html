@@ -1,253 +1,414 @@
+
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="uk">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>NebulaWorld | Minecraft Сервер</title>
+<title>NebulaWorld — Minecraft Server</title>
+
 <style>
-:root {
-  --bg: #0f0f1a;
-  --card: #1a1a2e;
-  --accent: #a855f7;
-  --accent2: #22c55e;
-  --text: #e2e8f0;
-  --muted: #94a3b8;
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;800&family=Inter:wght@400;500;600;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
-* { box-sizing: border-box; margin: 0; padding: 0; }
+
 body {
-  font-family: system-ui, -apple-system, sans-serif;
-  background: var(--bg);
-  color: var(--text);
-  line-height: 1.6;
-  min-height: 100vh;
+    background: #070817;
+    color: white;
+    font-family: 'Inter', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
 }
-header {
-  text-align: center;
-  padding: 3rem 1rem 1.5rem;
-  background: linear-gradient(180deg, #1a1a2e 0%, var(--bg) 100%);
+
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(circle at 20% 20%, #5424a044, transparent 35%),
+      radial-gradient(circle at 80% 70%, #164cc544, transparent 35%);
+    z-index: -1;
 }
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 25px 9%;
+    border-bottom: 1px solid #ffffff12;
+}
+
+.logo {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 23px;
+    font-weight: 800;
+    color: #a78bfa;
+}
+
+nav a {
+    color: #bbbdd4;
+    text-decoration: none;
+    margin-left: 25px;
+    font-size: 14px;
+    transition: .3s;
+}
+
+nav a:hover {
+    color: #a78bfa;
+}
+
+.hero {
+    text-align: center;
+    padding: 110px 20px 65px;
+}
+
+.tag {
+    display: inline-block;
+    padding: 9px 18px;
+    border: 1px solid #8056e566;
+    background: #8056e522;
+    color: #c4aaff;
+    border-radius: 30px;
+    font-size: 12px;
+    letter-spacing: 2px;
+    margin-bottom: 30px;
+}
+
 h1 {
-  font-size: clamp(2.5rem, 8vw, 4.5rem);
-  font-weight: 900;
-  background: linear-gradient(90deg, var(--accent), var(--accent2));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  letter-spacing: -1px;
-  margin-bottom: 0.5rem;
+    font-family: 'Orbitron', sans-serif;
+    font-size: clamp(38px, 8vw, 75px);
+    background: linear-gradient(90deg, #fff, #a78bfa, #5b9dff);
+    -webkit-background-clip: text;
+    color: transparent;
+    margin-bottom: 20px;
 }
-.subtitle { color: var(--muted); font-size: 1.1rem; }
-.nav {
-  display: flex;
-  justify-content: center;
-  gap: 0.5rem;
-  flex-wrap: wrap;
-  margin-top: 1.5rem;
-  padding: 0 1rem;
+
+.hero p {
+    color: #a5a7c4;
+    font-size: 16px;
+    margin-bottom: 35px;
 }
-.nav a {
-  color: var(--muted);
-  text-decoration: none;
-  padding: 0.5rem 1rem;
-  border-radius: 8px;
-  font-size: 0.95rem;
-  transition: 0.2s;
-}
-.nav a:hover, .nav a.active {
-  color: var(--text);
-  background: var(--card);
-}
-.container { max-width: 900px; margin: 0 auto; padding: 0 1rem 3rem; }
-.card {
-  background: var(--card);
-  border-radius: 16px;
-  padding: 1.5rem;
-  margin-bottom: 1.5rem;
-  border: 1px solid #2d2d4a;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-}
+
 .ip-box {
-  display: flex;
-  gap: 1rem;
-  align-items: center;
-  flex-wrap: wrap;
-  justify-content: center;
+    display: inline-flex;
+    align-items: center;
+    gap: 20px;
+    background: #15172c;
+    border: 1px solid #7655cb66;
+    border-radius: 12px;
+    padding: 16px 20px;
+    max-width: 100%;
 }
+
 .ip {
-  font-family: monospace;
-  font-size: 1.3rem;
-  background: #111;
-  padding: 0.8rem 1.2rem;
-  border-radius: 10px;
-  border: 1px solid #333;
-  letter-spacing: 1px;
+    font-family: monospace;
+    font-size: 16px;
+    color: #c4b5fd;
+    overflow-wrap: anywhere;
 }
-button, .btn {
-  background: var(--accent);
-  color: white;
-  border: none;
-  padding: 0.8rem 1.5rem;
-  border-radius: 10px;
-  font-weight: 700;
-  cursor: pointer;
-  transition: all 0.2s;
-  font-size: 1rem;
-  text-decoration: none;
-  display: inline-block;
+
+button {
+    background: linear-gradient(135deg, #8056e5, #4369df);
+    border: none;
+    color: white;
+    padding: 12px 18px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 700;
+    transition: .3s;
 }
-button:hover, .btn:hover { background: #9333ea; transform: translateY(-2px); }
-button.copied { background: var(--accent2); }
+
+button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 25px #8056e566;
+}
+
+section {
+    max-width: 950px;
+    margin: auto;
+    padding: 30px 20px;
+}
+
+.section-title {
+    font-family: 'Orbitron', sans-serif;
+    text-align: center;
+    font-size: 25px;
+    margin-bottom: 30px;
+}
+
+.monitor {
+    background: #13152a;
+    border: 1px solid #ffffff15;
+    border-radius: 18px;
+    padding: 30px;
+    box-shadow: 0 10px 40px #0005;
+}
+
+.monitor-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.monitor h3 {
+    font-family: 'Orbitron', sans-serif;
+}
+
+.status {
+    color: #ff6666;
+    font-size: 13px;
+}
+
+.status.online {
+    color: #55e6a5;
+}
+
 .stats {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-  gap: 1rem;
-  text-align: center;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
 }
+
 .stat {
-  background: #111827;
-  padding: 1rem;
-  border-radius: 12px;
+    background: #1c1f39;
+    padding: 22px 10px;
+    border-radius: 12px;
+    text-align: center;
 }
-.stat .num {
-  font-size: 2rem;
-  font-weight: 800;
-  color: var(--accent2);
+
+.stat small {
+    color: #9295b4;
+    display: block;
+    margin-bottom: 12px;
 }
-.stat .label { color: var(--muted); font-size: 0.9rem; }
-h2 {
-  font-size: 1.5rem;
-  margin-bottom: 1rem;
-  color: var(--accent);
+
+.stat strong {
+    font-size: 23px;
+    color: #c4b5fd;
 }
-.links {
-  display: flex;
-  gap: 1rem;
-  flex-wrap: wrap;
-  justify-content: center;
+
+.socials {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
 }
-.links a {
-  display: inline-block;
-  padding: 0.9rem 1.6rem;
-  border-radius: 12px;
-  font-weight: 700;
-  text-decoration: none;
-  transition: 0.2s;
+
+.social {
+    text-decoration: none;
+    color: white;
+    background: #15172d;
+    border: 1px solid #ffffff15;
+    border-radius: 14px;
+    padding: 25px 10px;
+    text-align: center;
+    transition: .3s;
 }
-.links .mono {
-  background: #000;
-  color: #fff;
-  border: 2px solid var(--accent2);
+
+.social:hover {
+    transform: translateY(-5px);
+    border-color: #9570ed;
+    background: #20203e;
 }
-.links .mono:hover { background: var(--accent2); color: #000; }
-.links .tg {
-  background: #229ED9;
-  color: #fff;
+
+.social span {
+    font-size: 28px;
+    display: block;
+    margin-bottom: 12px;
 }
-.links .tg:hover { background: #1b8ec4; }
-.links .discord {
-  background: #5865F2;
-  color: #fff;
+
+.social b {
+    font-size: 14px;
 }
-.links .discord:hover { background: #4752c4; }
+
+.donate {
+    margin-top: 35px;
+    text-align: center;
+}
+
+.donate a {
+    display: inline-block;
+    color: white;
+    background: linear-gradient(135deg, #8158e8, #4c65dc);
+    padding: 15px 35px;
+    border-radius: 10px;
+    text-decoration: none;
+    font-weight: 700;
+}
+
 footer {
-  text-align: center;
-  padding: 2rem;
-  color: var(--muted);
-  font-size: 0.9rem;
+    text-align: center;
+    padding: 35px 15px;
+    color: #737693;
+    font-size: 13px;
+    border-top: 1px solid #ffffff10;
+    margin-top: 60px;
 }
-footer a { color: var(--accent); text-decoration: none; }
-footer a:hover { text-decoration: underline; }
-@media (max-width: 600px) {
-  .ip-box { flex-direction: column; }
-  .ip { width: 100%; text-align: center; }
+
+@media(max-width:600px) {
+    nav {
+        padding: 20px;
+    }
+    nav a {
+        margin-left: 10px;
+        font-size: 12px;
+    }
+    .stats {
+        grid-template-columns: 1fr;
+    }
+    .socials {
+        grid-template-columns: 1fr;
+    }
+    .ip-box {
+        flex-direction: column;
+    }
 }
 </style>
 </head>
+
 <body>
-<header>
-  <h1>NebulaWorld</h1>
-  <p class="subtitle">Лучший Minecraft сервер</p>
-  <nav class="nav">
-    <a href="index.html" class="active">Главная</a>
-    <a href="rules.html">Правила</a>
-    <a href="donate.html">Донат</a>
-  </nav>
-</header>
 
-<div class="container">
-  <div class="card">
+<nav>
+    <div class="logo">✦ NEBULAWORLD</div>
+    <div>
+        <a href="#monitor">Моніторинг</a>
+        <a href="#social">Спільнота</a>
+    </div>
+</nav>
+
+<div class="hero">
+    <div class="tag">✦ MINECRAFT SERVER ✦</div>
+
+    <h1>NEBULAWORLD</h1>
+
+    <p>Відкрий для себе новий світ пригод!</p>
+
     <div class="ip-box">
-      <div class="ip" id="ip">neebulaanarhy.mcsh.gg</div>
-      <button id="copyBtn" onclick="copyIP()">Скопировать IP</button>
+        <span class="ip" id="serverIP">neebulaanarhy.mcsh.gg</span>
+        <button onclick="copyIP()">КОПІЮВАТИ</button>
     </div>
-  </div>
-
-  <div class="card">
-    <h2>Онлайн</h2>
-    <div class="stats">
-      <div class="stat">
-        <div class="num" id="online">—</div>
-        <div class="label">Игроков онлайн</div>
-      </div>
-      <div class="stat">
-        <div class="num" id="max">128</div>
-        <div class="label">Максимум</div>
-      </div>
-      <div class="stat">
-        <div class="num" id="version">1.21</div>
-        <div class="label">Версия</div>
-      </div>
-    </div>
-  </div>
-
-  <div class="card" style="text-align:center;">
-    <h2>Ссылки</h2>
-    <div class="links">
-      <a href="donate.html" class="mono">Донат</a>
-      <a href="https://t.me/ServerNebulaWorld" target="_blank" rel="noopener" class="tg">Telegram</a>
-      <a href="https://discord.gg/zAzPeP39tT" target="_blank" rel="noopener" class="discord">Discord</a>
-      <a href="rules.html" class="btn">Правила</a>
-    </div>
-  </div>
 </div>
 
+<section id="monitor">
+    <h2 class="section-title">SERVER MONITORING</h2>
+
+    <div class="monitor">
+        <div class="monitor-top">
+            <h3>🌌 NebulaWorld</h3>
+            <span class="status" id="status">● Перевірка...</span>
+        </div>
+
+        <div class="stats">
+            <div class="stat">
+                <small>Гравці онлайн</small>
+                <strong id="players">—</strong>
+            </div>
+
+            <div class="stat">
+                <small>Максимум гравців</small>
+                <strong id="maxPlayers">—</strong>
+            </div>
+
+            <div class="stat">
+                <small>Версія сервера</small>
+                <strong id="version">—</strong>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="social">
+    <h2 class="section-title">OUR COMMUNITY</h2>
+
+    <div class="socials">
+        <a class="social" href="https://discord.gg/bVtm5Q35h5" target="_blank">
+            <span>💬</span>
+            <b>Discord</b>
+        </a>
+
+        <a class="social" href="https://t.me/ServerNebulaWorld" target="_blank">
+            <span>✈️</span>
+            <b>Telegram</b>
+        </a>
+
+        <a class="social" href="https://send.monobank.ua/jar/5VASN4MRec" target="_blank">
+            <span>💎</span>
+            <b>Donate</b>
+        </a>
+    </div>
+
+    <div class="donate">
+        <a href="https://send.monobank.ua/jar/5VASN4MRec" target="_blank">
+            ПІДТРИМАТИ СЕРВЕР ✦
+        </a>
+    </div>
+</section>
+
 <footer>
-  NebulaWorld © 2026 • <a href="https://t.me/ServerNebulaWorld" target="_blank">Telegram</a>
+    © 2026 NebulaWorld. All rights reserved.
+    <br><br>
+    Made with ✦ for NebulaWorld
 </footer>
 
 <script>
+const ip = "neebulaanarhy.mcsh.gg";
+
 function copyIP() {
-  const ip = document.getElementById('ip').textContent;
-  navigator.clipboard.writeText(ip).then(() => {
-    const btn = document.getElementById('copyBtn');
-    const orig = btn.textContent;
-    btn.textContent = 'Скопировано!';
-    btn.classList.add('copied');
-    setTimeout(() => {
-      btn.textContent = orig;
-      btn.classList.remove('copied');
-    }, 2000);
-  }).catch(() => {
-    alert('Не удалось скопировать. IP: ' + ip);
-  });
+    navigator.clipboard.writeText(ip).then(() => {
+        alert("IP сервера скопійовано!");
+    }).catch(() => {
+        alert("IP сервера: " + ip);
+    });
 }
 
-async function loadStatus() {
-  try {
-    const res = await fetch('https://api.mcsrvstat.us/3/neebulaanarhy.mcsh.gg');
-    const data = await res.json();
-    if (data.online) {
-      document.getElementById('online').textContent = data.players.online;
-      document.getElementById('max').textContent = data.players.max || 128;
-      if (data.version) document.getElementById('version').textContent = data.version;
-    } else {
-      document.getElementById('online').textContent = '0';
+async function updateStatus() {
+    const status = document.getElementById("status");
+
+    try {
+        const response = await fetch(
+            "https://api.mcsrvstat.us/3/" + ip
+        );
+
+        if (!response.ok) throw new Error("API error");
+
+        const data = await response.json();
+
+        if (data.online) {
+            status.textContent = "● ONLINE";
+            status.className = "status online";
+
+            document.getElementById("players").textContent =
+                data.players?.online ?? 0;
+
+            document.getElementById("maxPlayers").textContent =
+                data.players?.max ?? "—";
+
+            document.getElementById("version").textContent =
+                data.version ?? "Unknown";
+        } else {
+            status.textContent = "● OFFLINE";
+
+            document.getElementById("players").textContent = "0";
+            document.getElementById("maxPlayers").textContent = "—";
+            document.getElementById("version").textContent = "—";
+        }
+
+    } catch (error) {
+        status.textContent = "● Помилка перевірки";
+        document.getElementById("players").textContent = "—";
+        document.getElementById("maxPlayers").textContent = "—";
+        document.getElementById("version").textContent = "—";
     }
-  } catch (e) {
-    document.getElementById('online').textContent = '—';
-  }
 }
-loadStatus();
-setInterval(loadStatus, 60000);
+
+updateStatus();
+setInterval(updateStatus, 30000);
 </script>
+
 </body>
 </html>
